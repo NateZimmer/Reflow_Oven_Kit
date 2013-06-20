@@ -1,0 +1,1 @@
+"./DRIVE/timer.obj" "./DRIVE/spi.obj" "./DRIVE/rtc.obj" "./DRIVE/led.obj" "./LCD/touch.obj" "./LCD/gui.obj" "./LCD/colorLCD.obj" "./OS/time.obj" "./OS/os.obj" "./Oven/profile_pb_free.obj" "./Oven/profile_lead.obj" "./Oven/oven_control.obj" "./Oven/oven.obj" "./main.obj" -l"libc.a" "../lnk_msp430g2553.cmd" 
