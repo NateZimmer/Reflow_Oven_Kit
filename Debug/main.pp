@@ -20,6 +20,7 @@ main.obj: ../DRIVE/../OS/time.h
 main.obj: ../OS/os.h
 main.obj: ../DRIVE/timer.h
 main.obj: ../DRIVE/led.h
+main.obj: ../Oven/calibration.h
 
 ../main.c: 
 F:/Program\ Files/ti/ccsv5/ccs_base/msp430/include/msp430g2553.h: 
@@ -41,3 +42,4 @@ F:/Program\ Files/ti/ccsv5/tools/compiler/msp430/include/stdarg.h:
 ../OS/os.h: 
 ../DRIVE/timer.h: 
 ../DRIVE/led.h: 
+../Oven/calibration.h: 

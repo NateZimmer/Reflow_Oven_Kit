@@ -74,7 +74,6 @@ void compensator(int setpoint_temp, int current_temp) {
 
 }
 
-
 #define min_count		0
 #define max_count		64
 #define gain			4
@@ -83,9 +82,7 @@ void new_compensator(uint8_t current_temp, uint8_t set_point)
 {
 	int16_t error =gain*(set_point-current_temp);
 	static unsigned int cycle_counts=max_count;
-	static int16_t error_previous = 0;
 	static unsigned int time_on=max_count;
-
 
 	if(error<min_count)
 	{
@@ -99,8 +96,6 @@ void new_compensator(uint8_t current_temp, uint8_t set_point)
 	//{
 	//	time_on+= error - error_previous;	// If error has changed from previous call of function
 	//}
-
-	error_previous = error;
 
 	if(time_on>1)
 	{
@@ -176,7 +171,7 @@ void run_oven_state_machine()
 			else
 			{
 				new_compensator(oven_temp,profileb[profile_count]);
-				if((profile_count)==250)
+				if((profile_count)==270)
 				{
 					oven_status=Oven_Alarm;
 				}

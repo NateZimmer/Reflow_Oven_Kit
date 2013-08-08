@@ -33,7 +33,9 @@ typedef enum
 {
 	Home_Page,
 	Reflow_Page,
-	Settings_Page
+	Settings_Page,
+	Time_Page,
+	Calibration_Page
 
 } Pages;
 

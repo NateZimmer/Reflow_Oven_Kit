@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v4.0.0                      
 ******************************************************************************
->> Linked Thu Jun 20 00:22:59 2013
+>> Linked Sat Jul 20 18:30:20 2013
 
 OUTPUT FILE NAME:   <Reflow_Oven_Kit.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 0000dc2c
+ENTRY POINT SYMBOL: "_c_int00"  address: 0000e564
 
 
 MEMORY CONFIGURATION
@@ -14,12 +14,12 @@ MEMORY CONFIGURATION
   SFR                   00000000   00000010  00000000  00000010  RWIX
   PERIPHERALS_8BIT      00000010   000000f0  00000000  000000f0  RWIX
   PERIPHERALS_16BIT     00000100   00000100  00000000  00000100  RWIX
-  RAM                   00000200   00000200  0000011a  000000e6  RWIX
+  RAM                   00000200   00000200  00000144  000000bc  RWIX
   INFOD                 00001000   00000040  00000000  00000040  RWIX
   INFOC                 00001040   00000040  00000000  00000040  RWIX
   INFOB                 00001080   00000040  00000000  00000040  RWIX
   INFOA                 000010c0   00000040  00000000  00000040  RWIX
-  FLASH                 0000c000   00003fe0  000033d3  00000c0d  RWIX
+  FLASH                 0000c000   00003fe0  00003f9f  00000041  RWIX
   INT00                 0000ffe0   00000002  00000000  00000002  RWIX
   INT01                 0000ffe2   00000002  00000000  00000002  RWIX
   INT02                 0000ffe4   00000002  00000000  00000002  RWIX
@@ -45,146 +45,186 @@ section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
 .pinit     0    0000c000    00000000     UNINITIALIZED
 
-.bss       0    00000200    000000ca     UNINITIALIZED
-                  00000200    0000007e     gui.obj (.bss)
-                  0000027e    00000018     colorLCD.obj (.bss)
-                  00000296    00000012     oven_control.obj (.bss)
-                  000002a8    0000000c     rtc.obj (.bss)
-                  000002b4    00000006     timer.obj (.bss)
-                  000002ba    00000004     rts430.lib : _lock.obj (.bss)
-                  000002be    00000004                : boot.obj (.bss)
-                  000002c2    00000003     led.obj (.bss)
-                  000002c5    00000001     --HOLE--
-                  000002c6    00000002     oven.obj (.bss)
-                  000002c8    00000002     time.obj (.bss)
+.bss       0    00000200    000000f4     UNINITIALIZED
+                  00000200    000000a3     gui.obj (.bss)
+                  000002a3    00000001     --HOLE--
+                  000002a4    00000018     colorLCD.obj (.bss)
+                  000002bc    00000010     oven_control.obj (.bss)
+                  000002cc    0000000c     rtc.obj (.bss)
+                  000002d8    00000008     timer.obj (.bss)
+                  000002e0    00000004     calibration.obj (.bss)
+                  000002e4    00000004     rts430.lib : _lock.obj (.bss)
+                  000002e8    00000004                : boot.obj (.bss)
+                  000002ec    00000003     led.obj (.bss)
+                  000002ef    00000001     --HOLE--
+                  000002f0    00000002     oven.obj (.bss)
+                  000002f2    00000002     time.obj (.bss)
 
 .stack     0    000003b0    00000050     UNINITIALIZED
                   000003b0    00000002     rts430.lib : boot.obj (.stack)
                   000003b2    0000004e     --HOLE--
 
-.text      0    0000c000    00001f34     
-                  0000c000    00000368     gui.obj (.text:Draw_Oven_Page)
-                  0000c368    0000018a     colorLCD.obj (.text:initILI9225B)
-                  0000c4f2    000000ea     gui.obj (.text:Page_Event_Handler)
-                  0000c5dc    000000e8     colorLCD.obj (.text:drawLine)
-                  0000c6c4    000000e4     gui.obj (.text:Check_Reflow_Page_Touch)
-                  0000c7a8    000000de     gui.obj (.text:Draw_Home_Page)
-                  0000c886    000000c8     gui.obj (.text:Draw_Settings_Page)
-                  0000c94e    000000c2     rts430.lib : fs_mpy.obj (.text)
-                  0000ca10    000000bc     oven_control.obj (.text:run_oven_state_machine)
-                  0000cacc    000000a0     touch.obj (.text:TOUCH_VAL)
-                  0000cb6c    0000009a     rtc.obj (.text:check_scheduler)
-                  0000cc06    0000009a     gui.obj (.text:draw_status_message)
-                  0000cca0    0000009a     rts430.lib : fs_div.obj (.text)
-                  0000cd3a    00000094     oven.obj (.text:get_Tcouple_value)
-                  0000cdce    00000094     gui.obj (.text:print_oven_data)
-                  0000ce62    00000094     colorLCD.obj (.text:setArea)
-                  0000cef6    00000092     time.obj (.text:get_time_long)
-                  0000cf88    0000008c     os.obj (.text:run_tasks)
-                  0000d014    00000088     colorLCD.obj (.text:drawChar8_12)
-                  0000d09c    00000082     gui.obj (.text:Check_Settings_Page)
-                  0000d11e    00000080     colorLCD.obj (.text:drawChar11_16)
-                  0000d19e    0000007e     colorLCD.obj (.text:drawChar)
-                  0000d21c    0000007e     oven.obj (.text:get_temp_str)
-                  0000d29a    0000007c     timer.obj (.text:Setup_PWM_Timers)
-                  0000d316    00000072     gui.obj (.text:Check_Home_Page_Touch)
-                  0000d388    00000072     rtc.obj (.text:watchdog_timer)
-                  0000d3fa    00000070     gui.obj (.text:Draw_Small_Button)
-                  0000d46a    00000066     gui.obj (.text:Check_Small_Touch)
-                  0000d4d0    00000066     gui.obj (.text:Create_Buttons)
-                  0000d536    00000066     colorLCD.obj (.text:gammaAdjustmentILI9225B)
-                  0000d59c    00000064     gui.obj (.text:update_graph)
-                  0000d600    00000062     oven.obj (.text:get_internal_temp)
-                  0000d662    0000005a     time.obj (.text:count_down_time_idle)
-                  0000d6bc    00000058     gui.obj (.text:Draw_Button)
-                  0000d714    00000056     time.obj (.text:count_down_time)
-                  0000d76a    00000052     gui.obj (.text:Check_Touch)
-                  0000d7bc    00000052     oven_control.obj (.text:new_compensator)
-                  0000d80e    0000004e     gui.obj (.text:Create_Button)
-                  0000d85c    0000004c     rts430.lib : lsr16.obj (.text)
-                  0000d8a8    0000004a     colorLCD.obj (.text:fillRect)
-                  0000d8f2    0000004a     colorLCD.obj (.text:setGRAMILI9225B)
-                  0000d93c    00000048     colorLCD.obj (.text:clearScreen)
-                  0000d984    00000046     rts430.lib : autoinit.obj (.text:_auto_init)
-                  0000d9ca    00000046     time.obj (.text:get_time_short)
-                  0000da10    00000046     rts430.lib : fs_tou.obj (.text)
-                  0000da56    00000040     led.obj (.text:led_state_machine)
-                  0000da96    0000003e     colorLCD.obj (.text:drawRect)
-                  0000dad4    0000003a     main.obj (.text:main)
-                  0000db0e    00000032     timer.obj (.text:LED_ANI_OFF)
-                  0000db40    00000032     timer.obj (.text:LED_ANI_ON)
-                  0000db72    00000032     touch.obj (.text:TOUCH_X)
-                  0000dba4    00000032     touch.obj (.text:TOUCH_Y)
-                  0000dbd6    0000002c     rts430.lib : div16s.obj (.text)
-                  0000dc02    0000002a     touch.obj (.text:TOUCH_SETUP)
-                  0000dc2c    00000026     rts430.lib : boot.obj (.text:_c_int00_noexit)
-                  0000dc52    00000026     colorLCD.obj (.text:drawString11_16)
-                  0000dc78    00000026     colorLCD.obj (.text:drawString)
-                  0000dc9e    00000026     rts430.lib : mult32.obj (.text)
-                  0000dcc4    00000024     spi.obj (.text:SPI_B_INIT)
-                  0000dce8    00000024     colorLCD.obj (.text:drawString8_12)
-                  0000dd0c    00000024     rts430.lib : fs_utof.obj (.text)
-                  0000dd30    00000020     timer.obj (.text:BUZZER_OFF)
-                  0000dd50    00000020     oven_control.obj (.text:start_oven)
-                  0000dd70    0000001e     timer.obj (.text:BLED_Sequence)
-                  0000dd8e    0000001e     timer.obj (.text:GLED_Sequence)
-                  0000ddac    0000001e     timer.obj (.text:RLED_Sequence)
-                  0000ddca    0000001a     colorLCD.obj (.text:drawPixel)
-                  0000dde4    00000016     spi.obj (.text:SPI_B_SEND)
-                  0000ddfa    00000016     colorLCD.obj (.text:delay)
-                  0000de10    00000016     rts430.lib : div16u.obj (.text)
-                  0000de26    00000014     led.obj (.text:reset_idle_timer)
-                  0000de3a    00000014     rts430.lib : mult16.obj (.text)
-                  0000de4e    00000012                : memcpy.obj (.text:memcpy)
-                  0000de60    00000012                : strlen.obj (.text:strlen)
-                  0000de72    00000012     colorLCD.obj (.text:writeCommand)
-                  0000de84    00000012     colorLCD.obj (.text:writeData)
-                  0000de96    00000010     rts430.lib : epilog.obj (.text)
-                  0000dea6    0000000e     gui.obj (.text:Setup_LCD)
-                  0000deb4    0000000e     rtc.obj (.text:rtc_setup)
-                  0000dec2    0000000e     oven_control.obj (.text:stop_oven)
-                  0000ded0    0000000c     colorLCD.obj (.text:setBackgroundColor16)
-                  0000dedc    0000000c     colorLCD.obj (.text:setColor16)
-                  0000dee8    0000000a     oven_control.obj (.text:get_reflow_time_string)
-                  0000def2    0000000a     rtc.obj (.text:get_system_time_string)
-                  0000defc    0000000a     oven.obj (.text:update_temp)
-                  0000df06    00000006     os.obj (.text:Start_OS)
-                  0000df0c    00000006     oven_control.obj (.text:check_for_lead_profile)
-                  0000df12    00000006     rtc.obj (.text:get_system_seconds)
-                  0000df18    00000006     oven.obj (.text:get_temp)
-                  0000df1e    00000006     oven_control.obj (.text:set_profile_leaded)
-                  0000df24    00000006     oven_control.obj (.text:set_profile_pb_free)
-                  0000df2a    00000004     rts430.lib : pre_init.obj (.text:_system_pre_init)
-                  0000df2e    00000004                : exit.obj (.text:abort)
-                  0000df32    00000002                : _lock.obj (.text:_nop)
+.text      0    0000c000    00002952     
+                  0000c000    00000320     gui.obj (.text:Draw_Oven_Page)
+                  0000c320    000001c0     gui.obj (.text:Check_Time_Page)
+                  0000c4e0    00000174     colorLCD.obj (.text:initILI9225B)
+                  0000c654    0000013c     gui.obj (.text:Check_Calibration_Page)
+                  0000c790    00000134     gui.obj (.text:Page_Event_Handler)
+                  0000c8c4    00000130     rts430.lib : fs_add.obj (.text)
+                  0000c9f4    00000112                : _printfi_min.obj (.text:_setfield)
+                  0000cb06    000000f8     colorLCD.obj (.text:drawLine)
+                  0000cbfe    000000dc     gui.obj (.text:Draw_Home_Page)
+                  0000ccda    000000d0     gui.obj (.text:Draw_Calibration_Page)
+                  0000cdaa    000000ca     rts430.lib : _printfi_min.obj (.text:_printfi_minimal)
+                  0000ce74    000000c6     gui.obj (.text:Draw_Time_Page)
+                  0000cf3a    000000c2     rts430.lib : fs_mpy.obj (.text)
+                  0000cffc    000000be     gui.obj (.text:print_oven_data)
+                  0000d0ba    000000bc     gui.obj (.text:Check_Reflow_Page_Touch)
+                  0000d176    000000b8     oven_control.obj (.text:run_oven_state_machine)
+                  0000d22e    000000b4     calibration.obj (.text:set_cal)
+                  0000d2e2    000000a0     touch.obj (.text:TOUCH_VAL)
+                  0000d382    0000009a     rtc.obj (.text:check_scheduler)
+                  0000d41c    0000009a     rts430.lib : fs_div.obj (.text)
+                  0000d4b6    00000094     os.obj (.text:run_tasks)
+                  0000d54a    00000090     led.obj (.text:led_state_machine)
+                  0000d5da    00000082     colorLCD.obj (.text:setArea)
+                  0000d65c    00000080     colorLCD.obj (.text:drawChar8_12)
+                  0000d6dc    00000080     rtc.obj (.text:watchdog_timer)
+                  0000d75c    0000007c     timer.obj (.text:Setup_PWM_Timers)
+                  0000d7d8    0000007c     oven.obj (.text:get_temp_str)
+                  0000d854    0000007a     time.obj (.text:get_time_long)
+                  0000d8ce    00000078     gui.obj (.text:draw_status_message)
+                  0000d946    00000074     colorLCD.obj (.text:drawChar11_16)
+                  0000d9ba    00000072     gui.obj (.text:Draw_Settings_Page)
+                  0000da2c    00000070     gui.obj (.text:Draw_Small_Button)
+                  0000da9c    00000070     colorLCD.obj (.text:drawChar)
+                  0000db0c    0000006c     gui.obj (.text:Check_Settings_Page)
+                  0000db78    0000006a     gui.obj (.text:Check_Home_Page_Touch)
+                  0000dbe2    00000066     time.obj (.text:count_down_time_idle)
+                  0000dc48    00000066     oven.obj (.text:get_Tcouple_value)
+                  0000dcae    00000064     gui.obj (.text:Create_Buttons)
+                  0000dd12    0000005e     gui.obj (.text:Check_Small_Touch)
+                  0000dd70    0000005e     colorLCD.obj (.text:gammaAdjustmentILI9225B)
+                  0000ddce    0000005c     time.obj (.text:count_down_time)
+                  0000de2a    00000056     gui.obj (.text:Draw_Button)
+                  0000de80    00000056     rts430.lib : _printfi_min.obj (.text:_ltostr)
+                  0000ded6    00000056     adc.obj (.text:get_adc_val)
+                  0000df2c    00000054     adc.obj (.text:get_temp_raw)
+                  0000df80    00000054     gui.obj (.text:update_graph)
+                  0000dfd4    00000050     oven_control.obj (.text:new_compensator)
+                  0000e024    0000004c     gui.obj (.text:Create_Button)
+                  0000e070    0000004c     rts430.lib : lsr16.obj (.text)
+                  0000e0bc    00000046                : autoinit.obj (.text:_auto_init)
+                  0000e102    00000046                : _printfi_min.obj (.text:_pproc_str)
+                  0000e148    00000046     colorLCD.obj (.text:fillRect)
+                  0000e18e    00000046     time.obj (.text:get_time_short)
+                  0000e1d4    00000046     rts430.lib : fs_tou.obj (.text)
+                  0000e21a    00000044     gui.obj (.text:Check_Touch)
+                  0000e25e    00000044     colorLCD.obj (.text:setGRAMILI9225B)
+                  0000e2a2    0000003e     colorLCD.obj (.text:clearScreen)
+                  0000e2e0    0000003e     colorLCD.obj (.text:drawRect)
+                  0000e31e    0000003e     main.obj (.text:main)
+                  0000e35c    00000038     rts430.lib : sprintf.obj (.text:sprintf)
+                  0000e394    00000036     timer.obj (.text:LED_ANI_OFF)
+                  0000e3ca    00000036     timer.obj (.text:LED_ANI_ON)
+                  0000e400    00000032     touch.obj (.text:TOUCH_X)
+                  0000e432    00000032     touch.obj (.text:TOUCH_Y)
+                  0000e464    0000002e     rts430.lib : _printfi_min.obj (.text:_getarg_diouxp)
+                  0000e492    0000002c                : _printfi_min.obj (.text:_pproc_diouxp)
+                  0000e4be    0000002c                : div16s.obj (.text)
+                  0000e4ea    0000002a     touch.obj (.text:TOUCH_SETUP)
+                  0000e514    00000028     calibration.obj (.text:init_cal)
+                  0000e53c    00000028     rts430.lib : memccpy.obj (.text:memccpy)
+                  0000e564    00000026                : boot.obj (.text:_c_int00_noexit)
+                  0000e58a    00000026     colorLCD.obj (.text:drawString11_16)
+                  0000e5b0    00000026     colorLCD.obj (.text:drawString)
+                  0000e5d6    00000026     rts430.lib : mult32.obj (.text)
+                  0000e5fc    00000024     spi.obj (.text:SPI_B_INIT)
+                  0000e620    00000024     colorLCD.obj (.text:drawString8_12)
+                  0000e644    00000024     rts430.lib : fs_utof.obj (.text)
+                  0000e668    00000020     timer.obj (.text:BUZZER_OFF)
+                  0000e688    00000020     timer.obj (.text:BUZZER_ON)
+                  0000e6a8    00000020     oven_control.obj (.text:start_oven)
+                  0000e6c8    0000001e     timer.obj (.text:BLED_Sequence)
+                  0000e6e6    0000001e     timer.obj (.text:GLED_Sequence)
+                  0000e704    0000001e     timer.obj (.text:RLED_Sequence)
+                  0000e722    0000001a     timer.obj (.text:CHARGE_OFF)
+                  0000e73c    0000001a     rts430.lib : sprintf.obj (.text:_outs)
+                  0000e756    00000018                : _printfi_min.obj (.text:_div)
+                  0000e76e    00000018     colorLCD.obj (.text:delay)
+                  0000e786    00000018     colorLCD.obj (.text:drawPixel)
+                  0000e79e    00000016     timer.obj (.text:CHARGE_ON)
+                  0000e7b4    00000016     spi.obj (.text:SPI_B_SEND)
+                  0000e7ca    00000016     led.obj (.text:reset_idle_timer)
+                  0000e7e0    00000016     rts430.lib : div16u.obj (.text)
+                  0000e7f6    00000014                : memset.obj (.text:memset)
+                  0000e80a    00000014                : mult16.obj (.text)
+                  0000e81e    00000012                : sprintf.obj (.text:_outc)
+                  0000e830    00000012                : memcpy.obj (.text:memcpy)
+                  0000e842    00000012                : strlen.obj (.text:strlen)
+                  0000e854    00000012     colorLCD.obj (.text:writeCommand)
+                  0000e866    00000012     colorLCD.obj (.text:writeData)
+                  0000e878    00000010     rts430.lib : epilog.obj (.text)
+                  0000e888    0000000e     rtc.obj (.text:rtc_setup)
+                  0000e896    0000000e     oven_control.obj (.text:stop_oven)
+                  0000e8a4    0000000c     gui.obj (.text:Setup_LCD)
+                  0000e8b0    0000000c     colorLCD.obj (.text:setBackgroundColor16)
+                  0000e8bc    0000000c     colorLCD.obj (.text:setColor16)
+                  0000e8c8    0000000a     oven.obj (.text:update_temp)
+                  0000e8d2    00000008     oven_control.obj (.text:get_reflow_time_string)
+                  0000e8da    00000008     rtc.obj (.text:get_system_time_string)
+                  0000e8e2    00000006     timer.obj (.text:Get_LED_Timer_Status)
+                  0000e8e8    00000006     timer.obj (.text:Set_LED_Timers_Off)
+                  0000e8ee    00000006     timer.obj (.text:Set_LED_Timers_On)
+                  0000e8f4    00000006     os.obj (.text:Start_OS)
+                  0000e8fa    00000006     oven_control.obj (.text:check_for_lead_profile)
+                  0000e900    00000006     calibration.obj (.text:get_cal_adc_offset)
+                  0000e906    00000006     calibration.obj (.text:get_cal_temp_offset)
+                  0000e90c    00000006     oven_control.obj (.text:get_reflow_time_minutes)
+                  0000e912    00000006     oven_control.obj (.text:get_reflow_time_seconds)
+                  0000e918    00000006     rtc.obj (.text:get_system_hours)
+                  0000e91e    00000006     rtc.obj (.text:get_system_minutes)
+                  0000e924    00000006     rtc.obj (.text:get_system_seconds)
+                  0000e92a    00000006     oven.obj (.text:get_temp)
+                  0000e930    00000006     oven_control.obj (.text:set_profile_leaded)
+                  0000e936    00000006     oven_control.obj (.text:set_profile_pb_free)
+                  0000e93c    00000006     rtc.obj (.text:set_system_hours)
+                  0000e942    00000006     rtc.obj (.text:set_system_minutes)
+                  0000e948    00000004     rts430.lib : pre_init.obj (.text:_system_pre_init)
+                  0000e94c    00000004                : exit.obj (.text:abort)
+                  0000e950    00000002                : _lock.obj (.text:_nop)
 
-.const     0    0000df34    000013b5     
-                  0000df34    0000082a     colorLCD.obj (.const:font_11x16)
-                  0000e75e    00000474     colorLCD.obj (.const:font_8x12)
-                  0000ebd2    000001e0     colorLCD.obj (.const:font)
-                  0000edb2    00000180     gui.obj (.const:.string)
-                  0000ef32    00000168     profile_lead.obj (.const:profile)
-                  0000f09a    00000168     profile_pb_free.obj (.const:profileb)
-                  0000f202    000000c8     timer.obj (.const:led_dutys2)
-                  0000f2ca    0000000a     colorLCD.obj (.const:$P$T4$5)
-                  0000f2d4    0000000a     colorLCD.obj (.const:$P$T5$6)
-                  0000f2de    0000000a     colorLCD.obj (.const:$P$T6$7)
-                  0000f2e8    00000001     oven_control.obj (.const)
+.const     0    0000e952    00001521     
+                  0000e952    0000082a     colorLCD.obj (.const:font_11x16)
+                  0000f17c    00000474     colorLCD.obj (.const:font_8x12)
+                  0000f5f0    0000020e     gui.obj (.const:.string)
+                  0000f7fe    000001e0     colorLCD.obj (.const:font)
+                  0000f9de    00000168     profile_lead.obj (.const:profile)
+                  0000fb46    00000168     profile_pb_free.obj (.const:profileb)
+                  0000fcae    000000c8     timer.obj (.const:blue_dutys)
+                  0000fd76    000000c8     timer.obj (.const:led_dutys2)
+                  0000fe3e    00000014     rts430.lib : _printfi_min.obj (.const:.string)
+                  0000fe52    0000000a     colorLCD.obj (.const:$P$T4$5)
+                  0000fe5c    0000000a     colorLCD.obj (.const:$P$T5$6)
+                  0000fe66    0000000a     colorLCD.obj (.const:$P$T6$7)
+                  0000fe70    00000002     calibration.obj (.const)
+                  0000fe72    00000001     oven_control.obj (.const)
 
-.cinit     0    0000f2ea    000000ea     
-                  0000f2ea    0000004b     gui.obj (.cinit)
-                  0000f335    00000001     --HOLE-- [fill = 0]
-                  0000f336    00000038     oven_control.obj (.cinit)
-                  0000f36e    00000020     rtc.obj (.cinit)
-                  0000f38e    00000017     colorLCD.obj (.cinit)
-                  0000f3a5    00000001     --HOLE-- [fill = 0]
-                  0000f3a6    00000012     timer.obj (.cinit)
-                  0000f3b8    0000000b     time.obj (.cinit)
-                  0000f3c3    00000001     --HOLE-- [fill = 0]
-                  0000f3c4    00000007     led.obj (.cinit)
-                  0000f3cb    00000001     --HOLE-- [fill = 0]
-                  0000f3cc    00000006     oven.obj (.cinit)
-                  0000f3d2    00000002     --HOLE-- [fill = 0]
+.cinit     0    0000fe74    0000012c     
+                  0000fe74    00000081     gui.obj (.cinit)
+                  0000fef5    00000001     --HOLE-- [fill = 0]
+                  0000fef6    00000032     oven_control.obj (.cinit)
+                  0000ff28    00000020     rtc.obj (.cinit)
+                  0000ff48    00000018     timer.obj (.cinit)
+                  0000ff60    00000017     colorLCD.obj (.cinit)
+                  0000ff77    00000001     --HOLE-- [fill = 0]
+                  0000ff78    0000000c     calibration.obj (.cinit)
+                  0000ff84    0000000b     time.obj (.cinit)
+                  0000ff8f    00000001     --HOLE-- [fill = 0]
+                  0000ff90    00000007     led.obj (.cinit)
+                  0000ff97    00000001     --HOLE-- [fill = 0]
+                  0000ff98    00000006     oven.obj (.cinit)
+                  0000ff9e    00000002     --HOLE-- [fill = 0]
 
 .int10     0    0000fff4    00000002     
                   0000fff4    00000002     rtc.obj (.int10)
@@ -209,9 +249,10 @@ address    name
 00000057   BCSCTL1
 00000058   BCSCTL2
 00000053   BCSCTL3
-0000dd70   BLED_Sequence
-0000dd30   BUZZER_OFF
-0000df2e   C$$EXIT
+0000e6c8   BLED_Sequence
+0000e668   BUZZER_OFF
+0000e688   BUZZER_ON
+0000e94c   C$$EXIT
 00000059   CACTL1
 0000005a   CACTL2
 000010fb   CALBC1_12MHZ
@@ -223,45 +264,52 @@ address    name
 000010fe   CALDCO_1MHZ
 000010fc   CALDCO_8MHZ
 0000005b   CAPD
-0000d316   Check_Home_Page_Touch
-0000c6c4   Check_Reflow_Page_Touch
-0000d09c   Check_Settings_Page
-0000d46a   Check_Small_Touch
-0000d76a   Check_Touch
-0000d80e   Create_Button
-0000d4d0   Create_Buttons
+0000e722   CHARGE_OFF
+0000e79e   CHARGE_ON
+0000c654   Check_Calibration_Page
+0000db78   Check_Home_Page_Touch
+0000d0ba   Check_Reflow_Page_Touch
+0000db0c   Check_Settings_Page
+0000dd12   Check_Small_Touch
+0000c320   Check_Time_Page
+0000e21a   Check_Touch
+0000e024   Create_Button
+0000dcae   Create_Buttons
 00000056   DCOCTL
-0000d6bc   Draw_Button
-0000c7a8   Draw_Home_Page
+0000de2a   Draw_Button
+0000ccda   Draw_Calibration_Page
+0000cbfe   Draw_Home_Page
 0000c000   Draw_Oven_Page
-0000c886   Draw_Settings_Page
-0000d3fa   Draw_Small_Button
+0000d9ba   Draw_Settings_Page
+0000da2c   Draw_Small_Button
+0000ce74   Draw_Time_Page
 00000128   FCTL1
 0000012a   FCTL2
 0000012c   FCTL3
-0000dd8e   GLED_Sequence
+0000e6e6   GLED_Sequence
+0000e8e2   Get_LED_Timer_Status
 00000000   IE1
 00000001   IE2
 00000002   IFG1
 00000003   IFG2
-0000d85c   I_LSR
-0000d8a2   I_LSR_1
-0000d87e   I_LSR_10
-0000d87a   I_LSR_11
-0000d876   I_LSR_12
-0000d872   I_LSR_13
-0000d86e   I_LSR_14
-0000d86a   I_LSR_15
-0000d89e   I_LSR_2
-0000d89a   I_LSR_3
-0000d896   I_LSR_4
-0000d892   I_LSR_5
-0000d88e   I_LSR_6
-0000d88a   I_LSR_7
-0000d886   I_LSR_8
-0000d882   I_LSR_9
-0000db0e   LED_ANI_OFF
-0000db40   LED_ANI_ON
+0000e070   I_LSR
+0000e0b6   I_LSR_1
+0000e092   I_LSR_10
+0000e08e   I_LSR_11
+0000e08a   I_LSR_12
+0000e086   I_LSR_13
+0000e082   I_LSR_14
+0000e07e   I_LSR_15
+0000e0b2   I_LSR_2
+0000e0ae   I_LSR_3
+0000e0aa   I_LSR_4
+0000e0a6   I_LSR_5
+0000e0a2   I_LSR_6
+0000e09e   I_LSR_7
+0000e09a   I_LSR_8
+0000e096   I_LSR_9
+0000e394   LED_ANI_OFF
+0000e3ca   LED_ANI_ON
 00000022   P1DIR
 00000025   P1IE
 00000024   P1IES
@@ -286,13 +334,15 @@ address    name
 00000010   P3REN
 0000001b   P3SEL
 00000043   P3SEL2
-0000c4f2   Page_Event_Handler
-0000ddac   RLED_Sequence
-0000dcc4   SPI_B_INIT
-0000dde4   SPI_B_SEND
-0000dea6   Setup_LCD
-0000d29a   Setup_PWM_Timers
-0000df06   Start_OS
+0000c790   Page_Event_Handler
+0000e704   RLED_Sequence
+0000e5fc   SPI_B_INIT
+0000e7b4   SPI_B_SEND
+0000e8e8   Set_LED_Timers_Off
+0000e8ee   Set_LED_Timers_On
+0000e8a4   Setup_LCD
+0000d75c   Setup_PWM_Timers
+0000e8f4   Start_OS
 00000172   TA0CCR0
 00000174   TA0CCR1
 00000176   TA0CCR2
@@ -311,10 +361,10 @@ address    name
 00000180   TA1CTL
 0000011e   TA1IV
 00000190   TA1R
-0000dc02   TOUCH_SETUP
-0000cacc   TOUCH_VAL
-0000db72   TOUCH_X
-0000dba4   TOUCH_Y
+0000e4ea   TOUCH_SETUP
+0000d2e2   TOUCH_VAL
+0000e400   TOUCH_X
+0000e432   TOUCH_Y
 0000005d   UCA0ABCTL
 00000062   UCA0BR0
 00000063   UCA0BR1
@@ -345,112 +395,130 @@ address    name
 ffffffff   __binit__
 00000200   __bss__
 ffffffff   __c_args__
-0000f2ea   __cinit__
-0000dbd6   __divi
-0000de10   __divu
-000002ca   __end__
-0000df34   __etext__
-0000cca0   __fs_div
-0000c94e   __fs_mpy
-0000da10   __fs_tou
-0000dd0c   __fs_utof
-0000de3a   __mpyi
-0000dc9e   __mpyl
+0000fe74   __cinit__
+0000e4be   __divi
+0000e7e0   __divu
+000002f4   __end__
+0000e952   __etext__
+0000c8ca   __fs_add
+0000d41c   __fs_div
+0000cf3a   __fs_mpy
+0000c8c4   __fs_sub
+0000e1d4   __fs_tou
+0000e644   __fs_utof
+0000e80a   __mpyi
+0000e5d6   __mpyl
 ffffffff   __pinit__
-0000dbd6   __remi
-0000de10   __remu
+0000e4be   __remi
+0000e7e0   __remu
 0000c000   __text__
-0000d984   _auto_init
-0000dc2c   _c_int00
-0000dc2c   _c_int00_noexit
-000002be   _cleanup_ptr
-000002c0   _dtors_ptr
-000002ba   _lock
-0000df32   _nop
+0000e0bc   _auto_init
+0000e564   _c_int00
+0000e564   _c_int00_noexit
+000002e8   _cleanup_ptr
+000002ea   _dtors_ptr
+000002e4   _lock
+0000e950   _nop
+0000cdaa   _printfi_minimal
 0000fffe   _reset_vector
 000003b0   _stack
-0000df2a   _system_pre_init
-000002bc   _unlock
-0000df2e   abort
-00000281   bgColorHighByte
-00000280   bgColorLowByte
+0000e948   _system_pre_init
+000002e6   _unlock
+0000e94c   abort
+000002a7   bgColorHighByte
+000002a6   bgColorLowByte
 ffffffff   binit
-0000df0c   check_for_lead_profile
-0000cb6c   check_scheduler
-0000f2ea   cinit
-0000d93c   clearScreen
-0000027f   colorHighByte
-0000027e   colorLowByte
-0000d714   count_down_time
-0000d662   count_down_time_idle
-000002a8   counts
-0000ddfa   delay
-0000d19e   drawChar
-0000d11e   drawChar11_16
-0000d014   drawChar8_12
-0000c5dc   drawLine
-0000ddca   drawPixel
-0000da96   drawRect
-0000dc78   drawString
-0000dc52   drawString11_16
-0000dce8   drawString8_12
-0000cc06   draw_status_message
-000002ca   end
-0000df34   etext
-0000d8a8   fillRect
-0000ebd2   font
-0000df34   font_11x16
-0000e75e   font_8x12
-0000dea2   func_epilog_1
-0000dea0   func_epilog_2
-0000de9e   func_epilog_3
-0000de9c   func_epilog_4
-0000de9a   func_epilog_5
-0000de98   func_epilog_6
-0000de96   func_epilog_7
-0000d536   gammaAdjustmentILI9225B
-0000cd3a   get_Tcouple_value
-0000d600   get_internal_temp
-0000dee8   get_reflow_time_string
-0000df12   get_system_seconds
-0000def2   get_system_time_string
-0000df18   get_temp
-0000d21c   get_temp_str
-0000cef6   get_time_long
-0000d9ca   get_time_short
-0000c368   initILI9225B
-0000f202   led_dutys2
-0000da56   led_state_machine
-0000dad4   main
-0000de4e   memcpy
-0000d7bc   new_compensator
-0000029e   oven_status
+0000fcae   blue_dutys
+0000e8fa   check_for_lead_profile
+0000d382   check_scheduler
+0000fe74   cinit
+0000e2a2   clearScreen
+000002a5   colorHighByte
+000002a4   colorLowByte
+0000ddce   count_down_time
+0000dbe2   count_down_time_idle
+000002cc   counts
+0000e76e   delay
+0000da9c   drawChar
+0000d946   drawChar11_16
+0000d65c   drawChar8_12
+0000cb06   drawLine
+0000e786   drawPixel
+0000e2e0   drawRect
+0000e5b0   drawString
+0000e58a   drawString11_16
+0000e620   drawString8_12
+0000d8ce   draw_status_message
+000002f4   end
+0000e952   etext
+0000e148   fillRect
+0000f7fe   font
+0000e952   font_11x16
+0000f17c   font_8x12
+0000e884   func_epilog_1
+0000e882   func_epilog_2
+0000e880   func_epilog_3
+0000e87e   func_epilog_4
+0000e87c   func_epilog_5
+0000e87a   func_epilog_6
+0000e878   func_epilog_7
+0000dd70   gammaAdjustmentILI9225B
+0000dc48   get_Tcouple_value
+0000ded6   get_adc_val
+0000e900   get_cal_adc_offset
+0000e906   get_cal_temp_offset
+0000e90c   get_reflow_time_minutes
+0000e912   get_reflow_time_seconds
+0000e8d2   get_reflow_time_string
+0000e918   get_system_hours
+0000e91e   get_system_minutes
+0000e924   get_system_seconds
+0000e8da   get_system_time_string
+0000e92a   get_temp
+0000df2c   get_temp_raw
+0000d7d8   get_temp_str
+0000d854   get_time_long
+0000e18e   get_time_short
+0000c4e0   initILI9225B
+0000e514   init_cal
+0000fd76   led_dutys2
+0000d54a   led_state_machine
+0000e31e   main
+0000e53c   memccpy
+0000e830   memcpy
+0000e7f6   memset
+0000dfd4   new_compensator
+000002c4   oven_status
 ffffffff   pinit
-0000cdce   print_oven_data
-0000ef32   profile
-0000f09a   profileb
-000002ae   reflow_timer
-0000de26   reset_idle_timer
-0000deb4   rtc_setup
-0000ca10   run_oven_state_machine
-0000cf88   run_tasks
-0000ce62   setArea
-0000ded0   setBackgroundColor16
-0000dedc   setColor16
-0000d8f2   setGRAMILI9225B
-0000df1e   set_profile_leaded
-0000df24   set_profile_pb_free
-0000dd50   start_oven
-0000dec2   stop_oven
-0000de60   strlen
-000002b0   task_flags
-00000282   text_buffer
-0000f2e8   total_counts
-0000d59c   update_graph
-0000defc   update_temp
-0000d388   watchdog_timer
-0000de72   writeCommand
-0000de84   writeData
+0000cffc   print_oven_data
+0000f9de   profile
+0000fb46   profileb
+000002d2   reflow_timer
+0000e7ca   reset_idle_timer
+0000e888   rtc_setup
+0000d176   run_oven_state_machine
+0000d4b6   run_tasks
+0000d5da   setArea
+0000e8b0   setBackgroundColor16
+0000e8bc   setColor16
+0000e25e   setGRAMILI9225B
+0000d22e   set_cal
+0000e930   set_profile_leaded
+0000e936   set_profile_pb_free
+0000e93c   set_system_hours
+0000e942   set_system_minutes
+0000e35c   sprintf
+0000e6a8   start_oven
+0000e896   stop_oven
+0000e842   strlen
+000002d4   task_flags
+000002a8   text_buffer
+0000fe72   total_counts
+0000df80   update_graph
+0000e8c8   update_temp
+0000d6dc   watchdog_timer
+0000e854   writeCommand
+0000e866   writeData
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -548,21 +616,21 @@ address    name
 000001bc   ADC10SA
 00000200   .bss
 00000200   __bss__
-0000027e   colorLowByte
-0000027f   colorHighByte
-00000280   bgColorLowByte
-00000281   bgColorHighByte
-00000282   text_buffer
-0000029e   oven_status
-000002a8   counts
-000002ae   reflow_timer
-000002b0   task_flags
-000002ba   _lock
-000002bc   _unlock
-000002be   _cleanup_ptr
-000002c0   _dtors_ptr
-000002ca   __end__
-000002ca   end
+000002a4   colorLowByte
+000002a5   colorHighByte
+000002a6   bgColorLowByte
+000002a7   bgColorHighByte
+000002a8   text_buffer
+000002c4   oven_status
+000002cc   counts
+000002d2   reflow_timer
+000002d4   task_flags
+000002e4   _lock
+000002e6   _unlock
+000002e8   _cleanup_ptr
+000002ea   _dtors_ptr
+000002f4   __end__
+000002f4   end
 000003b0   _stack
 00000400   __STACK_END
 000010f8   CALDCO_16MHZ
@@ -576,135 +644,163 @@ address    name
 0000c000   .text
 0000c000   Draw_Oven_Page
 0000c000   __text__
-0000c368   initILI9225B
-0000c4f2   Page_Event_Handler
-0000c5dc   drawLine
-0000c6c4   Check_Reflow_Page_Touch
-0000c7a8   Draw_Home_Page
-0000c886   Draw_Settings_Page
-0000c94e   __fs_mpy
-0000ca10   run_oven_state_machine
-0000cacc   TOUCH_VAL
-0000cb6c   check_scheduler
-0000cc06   draw_status_message
-0000cca0   __fs_div
-0000cd3a   get_Tcouple_value
-0000cdce   print_oven_data
-0000ce62   setArea
-0000cef6   get_time_long
-0000cf88   run_tasks
-0000d014   drawChar8_12
-0000d09c   Check_Settings_Page
-0000d11e   drawChar11_16
-0000d19e   drawChar
-0000d21c   get_temp_str
-0000d29a   Setup_PWM_Timers
-0000d316   Check_Home_Page_Touch
-0000d388   watchdog_timer
-0000d3fa   Draw_Small_Button
-0000d46a   Check_Small_Touch
-0000d4d0   Create_Buttons
-0000d536   gammaAdjustmentILI9225B
-0000d59c   update_graph
-0000d600   get_internal_temp
-0000d662   count_down_time_idle
-0000d6bc   Draw_Button
-0000d714   count_down_time
-0000d76a   Check_Touch
-0000d7bc   new_compensator
-0000d80e   Create_Button
-0000d85c   I_LSR
-0000d86a   I_LSR_15
-0000d86e   I_LSR_14
-0000d872   I_LSR_13
-0000d876   I_LSR_12
-0000d87a   I_LSR_11
-0000d87e   I_LSR_10
-0000d882   I_LSR_9
-0000d886   I_LSR_8
-0000d88a   I_LSR_7
-0000d88e   I_LSR_6
-0000d892   I_LSR_5
-0000d896   I_LSR_4
-0000d89a   I_LSR_3
-0000d89e   I_LSR_2
-0000d8a2   I_LSR_1
-0000d8a8   fillRect
-0000d8f2   setGRAMILI9225B
-0000d93c   clearScreen
-0000d984   _auto_init
-0000d9ca   get_time_short
-0000da10   __fs_tou
-0000da56   led_state_machine
-0000da96   drawRect
-0000dad4   main
-0000db0e   LED_ANI_OFF
-0000db40   LED_ANI_ON
-0000db72   TOUCH_X
-0000dba4   TOUCH_Y
-0000dbd6   __divi
-0000dbd6   __remi
-0000dc02   TOUCH_SETUP
-0000dc2c   _c_int00
-0000dc2c   _c_int00_noexit
-0000dc52   drawString11_16
-0000dc78   drawString
-0000dc9e   __mpyl
-0000dcc4   SPI_B_INIT
-0000dce8   drawString8_12
-0000dd0c   __fs_utof
-0000dd30   BUZZER_OFF
-0000dd50   start_oven
-0000dd70   BLED_Sequence
-0000dd8e   GLED_Sequence
-0000ddac   RLED_Sequence
-0000ddca   drawPixel
-0000dde4   SPI_B_SEND
-0000ddfa   delay
-0000de10   __divu
-0000de10   __remu
-0000de26   reset_idle_timer
-0000de3a   __mpyi
-0000de4e   memcpy
-0000de60   strlen
-0000de72   writeCommand
-0000de84   writeData
-0000de96   func_epilog_7
-0000de98   func_epilog_6
-0000de9a   func_epilog_5
-0000de9c   func_epilog_4
-0000de9e   func_epilog_3
-0000dea0   func_epilog_2
-0000dea2   func_epilog_1
-0000dea6   Setup_LCD
-0000deb4   rtc_setup
-0000dec2   stop_oven
-0000ded0   setBackgroundColor16
-0000dedc   setColor16
-0000dee8   get_reflow_time_string
-0000def2   get_system_time_string
-0000defc   update_temp
-0000df06   Start_OS
-0000df0c   check_for_lead_profile
-0000df12   get_system_seconds
-0000df18   get_temp
-0000df1e   set_profile_leaded
-0000df24   set_profile_pb_free
-0000df2a   _system_pre_init
-0000df2e   C$$EXIT
-0000df2e   abort
-0000df32   _nop
-0000df34   __etext__
-0000df34   etext
-0000df34   font_11x16
-0000e75e   font_8x12
-0000ebd2   font
-0000ef32   profile
-0000f09a   profileb
-0000f202   led_dutys2
-0000f2e8   total_counts
-0000f2ea   __cinit__
-0000f2ea   cinit
+0000c320   Check_Time_Page
+0000c4e0   initILI9225B
+0000c654   Check_Calibration_Page
+0000c790   Page_Event_Handler
+0000c8c4   __fs_sub
+0000c8ca   __fs_add
+0000cb06   drawLine
+0000cbfe   Draw_Home_Page
+0000ccda   Draw_Calibration_Page
+0000cdaa   _printfi_minimal
+0000ce74   Draw_Time_Page
+0000cf3a   __fs_mpy
+0000cffc   print_oven_data
+0000d0ba   Check_Reflow_Page_Touch
+0000d176   run_oven_state_machine
+0000d22e   set_cal
+0000d2e2   TOUCH_VAL
+0000d382   check_scheduler
+0000d41c   __fs_div
+0000d4b6   run_tasks
+0000d54a   led_state_machine
+0000d5da   setArea
+0000d65c   drawChar8_12
+0000d6dc   watchdog_timer
+0000d75c   Setup_PWM_Timers
+0000d7d8   get_temp_str
+0000d854   get_time_long
+0000d8ce   draw_status_message
+0000d946   drawChar11_16
+0000d9ba   Draw_Settings_Page
+0000da2c   Draw_Small_Button
+0000da9c   drawChar
+0000db0c   Check_Settings_Page
+0000db78   Check_Home_Page_Touch
+0000dbe2   count_down_time_idle
+0000dc48   get_Tcouple_value
+0000dcae   Create_Buttons
+0000dd12   Check_Small_Touch
+0000dd70   gammaAdjustmentILI9225B
+0000ddce   count_down_time
+0000de2a   Draw_Button
+0000ded6   get_adc_val
+0000df2c   get_temp_raw
+0000df80   update_graph
+0000dfd4   new_compensator
+0000e024   Create_Button
+0000e070   I_LSR
+0000e07e   I_LSR_15
+0000e082   I_LSR_14
+0000e086   I_LSR_13
+0000e08a   I_LSR_12
+0000e08e   I_LSR_11
+0000e092   I_LSR_10
+0000e096   I_LSR_9
+0000e09a   I_LSR_8
+0000e09e   I_LSR_7
+0000e0a2   I_LSR_6
+0000e0a6   I_LSR_5
+0000e0aa   I_LSR_4
+0000e0ae   I_LSR_3
+0000e0b2   I_LSR_2
+0000e0b6   I_LSR_1
+0000e0bc   _auto_init
+0000e148   fillRect
+0000e18e   get_time_short
+0000e1d4   __fs_tou
+0000e21a   Check_Touch
+0000e25e   setGRAMILI9225B
+0000e2a2   clearScreen
+0000e2e0   drawRect
+0000e31e   main
+0000e35c   sprintf
+0000e394   LED_ANI_OFF
+0000e3ca   LED_ANI_ON
+0000e400   TOUCH_X
+0000e432   TOUCH_Y
+0000e4be   __divi
+0000e4be   __remi
+0000e4ea   TOUCH_SETUP
+0000e514   init_cal
+0000e53c   memccpy
+0000e564   _c_int00
+0000e564   _c_int00_noexit
+0000e58a   drawString11_16
+0000e5b0   drawString
+0000e5d6   __mpyl
+0000e5fc   SPI_B_INIT
+0000e620   drawString8_12
+0000e644   __fs_utof
+0000e668   BUZZER_OFF
+0000e688   BUZZER_ON
+0000e6a8   start_oven
+0000e6c8   BLED_Sequence
+0000e6e6   GLED_Sequence
+0000e704   RLED_Sequence
+0000e722   CHARGE_OFF
+0000e76e   delay
+0000e786   drawPixel
+0000e79e   CHARGE_ON
+0000e7b4   SPI_B_SEND
+0000e7ca   reset_idle_timer
+0000e7e0   __divu
+0000e7e0   __remu
+0000e7f6   memset
+0000e80a   __mpyi
+0000e830   memcpy
+0000e842   strlen
+0000e854   writeCommand
+0000e866   writeData
+0000e878   func_epilog_7
+0000e87a   func_epilog_6
+0000e87c   func_epilog_5
+0000e87e   func_epilog_4
+0000e880   func_epilog_3
+0000e882   func_epilog_2
+0000e884   func_epilog_1
+0000e888   rtc_setup
+0000e896   stop_oven
+0000e8a4   Setup_LCD
+0000e8b0   setBackgroundColor16
+0000e8bc   setColor16
+0000e8c8   update_temp
+0000e8d2   get_reflow_time_string
+0000e8da   get_system_time_string
+0000e8e2   Get_LED_Timer_Status
+0000e8e8   Set_LED_Timers_Off
+0000e8ee   Set_LED_Timers_On
+0000e8f4   Start_OS
+0000e8fa   check_for_lead_profile
+0000e900   get_cal_adc_offset
+0000e906   get_cal_temp_offset
+0000e90c   get_reflow_time_minutes
+0000e912   get_reflow_time_seconds
+0000e918   get_system_hours
+0000e91e   get_system_minutes
+0000e924   get_system_seconds
+0000e92a   get_temp
+0000e930   set_profile_leaded
+0000e936   set_profile_pb_free
+0000e93c   set_system_hours
+0000e942   set_system_minutes
+0000e948   _system_pre_init
+0000e94c   C$$EXIT
+0000e94c   abort
+0000e950   _nop
+0000e952   __etext__
+0000e952   etext
+0000e952   font_11x16
+0000f17c   font_8x12
+0000f7fe   font
+0000f9de   profile
+0000fb46   profileb
+0000fcae   blue_dutys
+0000fd76   led_dutys2
+0000fe72   total_counts
+0000fe74   __cinit__
+0000fe74   cinit
 0000fffe   _reset_vector
 ffffffff   __binit__
 ffffffff   __c_args__
@@ -712,4 +808,4 @@ ffffffff   __pinit__
 ffffffff   binit
 ffffffff   pinit
 
-[254 symbols]
+[282 symbols]

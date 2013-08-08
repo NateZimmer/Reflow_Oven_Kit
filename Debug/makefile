@@ -12,6 +12,7 @@ $(GEN_CMDS__FLAG) \
 "./DRIVE/spi.obj" \
 "./DRIVE/rtc.obj" \
 "./DRIVE/led.obj" \
+"./DRIVE/adc.obj" \
 "./LCD/touch.obj" \
 "./LCD/gui.obj" \
 "./LCD/colorLCD.obj" \
@@ -21,6 +22,7 @@ $(GEN_CMDS__FLAG) \
 "./Oven/profile_lead.obj" \
 "./Oven/oven_control.obj" \
 "./Oven/oven.obj" \
+"./Oven/calibration.obj" \
 "./main.obj" \
 -l"libc.a" \
 "../lnk_msp430g2553.cmd" \
@@ -136,15 +138,15 @@ all: Reflow_Oven_Kit.out
 Reflow_Oven_Kit.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MSP430 Linker'
-	"F:/Program Files/ti/ccsv5/tools/compiler/msp430/bin/cl430" -vmsp --abi=coffabi -g --define=__MSP430G2553__ --diag_warning=225 --display_error_number --printf_support=minimal -z -m"Reflow_Oven_Kit.map" --stack_size=80 --heap_size=80 -i"F:/Program Files/ti/ccsv5/ccs_base/msp430/include" -i"F:/Program Files/ti/ccsv5/tools/compiler/msp430/lib" -i"F:/Program Files/ti/ccsv5/tools/compiler/msp430/include" --reread_libs --warn_sections --rom_model -o "Reflow_Oven_Kit.out" $(ORDERED_OBJS)
+	"F:/Program Files/ti/ccsv5/tools/compiler/msp430/bin/cl430" -vmsp --abi=coffabi -O2 -g --define=__MSP430G2553__ --diag_warning=225 --display_error_number --printf_support=minimal -z -m"Reflow_Oven_Kit.map" --stack_size=80 --heap_size=80 -i"F:/Program Files/ti/ccsv5/ccs_base/msp430/include" -i"F:/Program Files/ti/ccsv5/tools/compiler/msp430/lib" -i"F:/Program Files/ti/ccsv5/tools/compiler/msp430/include" --reread_libs --warn_sections --rom_model -o "Reflow_Oven_Kit.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(MSP430_EXECUTABLE_OUTPUTS__QUOTED) "Reflow_Oven_Kit.out"
-	-$(RM) "main.pp" "Oven\oven.pp" "Oven\oven_control.pp" "Oven\profile_lead.pp" "Oven\profile_pb_free.pp" "OS\os.pp" "OS\time.pp" "LCD\colorLCD.pp" "LCD\gui.pp" "LCD\touch.pp" "DRIVE\led.pp" "DRIVE\rtc.pp" "DRIVE\spi.pp" "DRIVE\timer.pp" 
-	-$(RM) "main.obj" "Oven\oven.obj" "Oven\oven_control.obj" "Oven\profile_lead.obj" "Oven\profile_pb_free.obj" "OS\os.obj" "OS\time.obj" "LCD\colorLCD.obj" "LCD\gui.obj" "LCD\touch.obj" "DRIVE\led.obj" "DRIVE\rtc.obj" "DRIVE\spi.obj" "DRIVE\timer.obj" 
+	-$(RM) "main.pp" "Oven\calibration.pp" "Oven\oven.pp" "Oven\oven_control.pp" "Oven\profile_lead.pp" "Oven\profile_pb_free.pp" "OS\os.pp" "OS\time.pp" "LCD\colorLCD.pp" "LCD\gui.pp" "LCD\touch.pp" "DRIVE\adc.pp" "DRIVE\led.pp" "DRIVE\rtc.pp" "DRIVE\spi.pp" "DRIVE\timer.pp" 
+	-$(RM) "main.obj" "Oven\calibration.obj" "Oven\oven.obj" "Oven\oven_control.obj" "Oven\profile_lead.obj" "Oven\profile_pb_free.obj" "OS\os.obj" "OS\time.obj" "LCD\colorLCD.obj" "LCD\gui.obj" "LCD\touch.obj" "DRIVE\adc.obj" "DRIVE\led.obj" "DRIVE\rtc.obj" "DRIVE\spi.obj" "DRIVE\timer.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

@@ -112,8 +112,6 @@ extern char text_buffer[20];
 #define LCD_BLIGHT_OUTPUT P2OUT
 #define LCD_BLIGHT_SETUP P2DIR
 
-
-
 //
 #define LCD_SELECT LCD_SCE_PORT &= ~LCD_SCE_PIN
 #define LCD_DESELECT LCD_SCE_PORT |= LCD_SCE_PIN

@@ -9,39 +9,14 @@
 
 #include "../DRIVE/GPIO.h"
 #include "../DRIVE/spi.h"
+#include "../DRIVE/adc.h"
+#include "calibration.h"
 
 
 static uint16_t g_oven_temp=0;
-#define adc_offset 220 // offset roughly 70 mv
+#define adc_offset 350 // offset roughly 70 mv
+#define adc_c
 
-
-
-uint8_t get_internal_temp()
-{
-	unsigned int temp =0;
-	unsigned int IntDegC =0;
-	int i=0;
-
-	ADC10CTL0 = 0;
-	ADC10CTL1 = INCH_10 + ADC10DIV_3;         // Temp Sensor ADC10CLK/48
-	ADC10CTL0 = SREF_1 + ADC10SHT_3 + REFON + ADC10ON;
-    while (ADC10CTL1 & BUSY);
-	   for(i=0;i<32;i++)
-	   {
-	    ADC10CTL0 |= ENC + ADC10SC;             // Sampling and conversion start
-	    while (ADC10CTL1 & BUSY);
-	   temp = ADC10MEM;
-	    //IntDegC += ((temp - 673) * 423)>>10;
-
-	   IntDegC += (((27069L * temp) - 18169625L) >> 16);
-
-
-
-	   }
-	   IntDegC>>=5;
-	   IntDegC-=4;
-	   return IntDegC;
-}
 
 #define mV_per_deg_c 0.04
 #define gain 220
@@ -49,34 +24,31 @@ uint8_t get_internal_temp()
 uint16_t get_Tcouple_value()
 {
 
-	uint16_t tval =0;
-	uint16_t adc_current=0;
-	uint8_t i=0;
+	uint16_t tval=0;
+	uint16_t board_temp=get_temp_raw();
+	uint16_t thermocouple_mv=get_adc_val();
 
-	ADC10CTL0 = 0;
-	while (ADC10CTL1 & BUSY);
-	ADC10CTL0 = ADC10ON + SREF_0 + ADC10SHT_3; // ADC10ON, interrupt enabled
-	ADC10CTL1 = INCH_3+ ADC10DIV_2 +SHS_0;                       // input A1
-	ADC10AE0 |= BIT3;                         // PA.1 ADC option select
-	while (ADC10CTL1 & BUSY);
-	   for(i=0;i<8;i++)
-	   {
-		ADC10CTL0 |= ENC + ADC10SC;             // Sampling and conversion start
-	   while (ADC10CTL1 & BUSY);
-	   adc_current = ADC10MEM;
-	   //adc_val += (adc_current*3) + (adc_current>>1) + (adc_current>>6) ;
-	   tval += adc_current; // 3600/1024
-	   }
-	   tval*=3.2227;
-	   tval>>=3;
-	   adc_current=get_internal_temp();
-	   if(tval>adc_offset)
-		   tval=(tval - adc_offset)/(gain*mV_per_deg_c); // 0.04mV/degC * 220gain = 8.8
-	   else
-		   tval=0;
+	if(thermocouple_mv>get_cal_adc_offset())
+	{
+		thermocouple_mv = thermocouple_mv - get_cal_adc_offset();
+	}
+	else
+	{
+		thermocouple_mv=0;
+	}
 
-	   tval+=adc_current;
-	   return tval;
+	if(board_temp>get_cal_temp_offset())
+	{
+		board_temp=board_temp-get_cal_temp_offset();
+	}
+	else
+	{
+		board_temp=0;
+	}
+
+	tval=(thermocouple_mv)/(gain*mV_per_deg_c) + board_temp ; // 0.04mV/degC * 220gain = 8.8
+
+	return tval;
 }
 
 
@@ -85,8 +57,6 @@ void update_temp()
 {
 	 g_oven_temp=get_Tcouple_value();
 }
-
-
 
 uint16_t get_temp()
 {

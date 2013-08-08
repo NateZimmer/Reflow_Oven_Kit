@@ -9,7 +9,6 @@
 #include "time.h"
 #include "../DRIVE/rtc.h"
 
-
 uint8_t count_down_time(time_stamp *present_time)
 {
 	static uint8_t previous_seconds=0;
@@ -91,6 +90,19 @@ uint8_t count_down_time_idle(time_stamp *present_time)
 	return return_val;
 }
 
+uint16_t get_time_difference(time_stamp *reference, time_stamp *present)
+{
+	uint16_t seconds=0;
+	if(present->minutes>reference->minutes)
+	{
+		seconds+=60*(present->minutes - reference->minutes);
+	}
+	if(present->secs>reference->secs)
+	{
+		seconds+=( present->secs - reference->secs);
+	}
+	return seconds;
+}
 
 void get_time_long(char * buffer, time_stamp *present_time) // format hours:mins:secs
 {

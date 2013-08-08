@@ -14,6 +14,7 @@
 #include "../DRIVE/rtc.h"
 #include "../DRIVE/timer.h"
 #include "../Oven/oven_control.h"
+#include "../Oven/calibration.h"
 #include "string.h"
 
 static Text_Button Leaded;
@@ -22,10 +23,13 @@ static Text_Button Settings;
 static Text_Button Start;
 static Text_Button Back;
 
-static Small_Text_Button Plus = {10,70," + "};
-static Small_Text_Button Minus = {10,100," - "};
-static Small_Text_Button Hours = {60,70,"Hours"};
-static Small_Text_Button Mins = {60,100,"Minutes"};
+static Small_Text_Button Plus = {10,90," + "};
+static Small_Text_Button Minus = {10,120," - "};
+static Small_Text_Button Hours = {60,90,"Hours"};
+static Small_Text_Button Mins = {60,120,"Minutes"};
+static Small_Text_Button Time = {10,60,"Set Time"};
+static Small_Text_Button Calibration = {100,60,"Temp Cal"};
+static Small_Text_Button Set_Temp = {70,90,"Calibrate"};
 
 static uint16_t Small_Button_Color = COLOR_16_RED;
 
@@ -271,6 +275,25 @@ void Draw_Settings_Page()
 	drawString11_16(10, 10, "Reflow Oven V3");
 	setBackgroundColor16(COLOR_16_BLACK);
 	setColor16(COLOR_16_WHITE);
+	setColor16(COLOR_16_WHITE);
+	Draw_Small_Button(&Time);
+	Draw_Small_Button(&Calibration);
+	Draw_Button(&Back);
+
+}
+
+void Draw_Time_Page()
+{
+	clearScreen(1);
+	setColor16(0xFFFF);
+	clearScreen(1);
+	setColor16(COLOR_16_BLUE);
+	fillRect(0, 0, 220, 30);
+	setColor16(COLOR_16_WHITE);
+	setBackgroundColor16(COLOR_16_BLUE);
+	drawString11_16(10, 10, "Reflow Oven V3");
+	setBackgroundColor16(COLOR_16_BLACK);
+	setColor16(COLOR_16_WHITE);
 	drawString8_12(10,40, "Time Selection:");
 	setColor16(COLOR_16_WHITE);
 
@@ -293,9 +316,33 @@ void Draw_Settings_Page()
 	}
 
 	Draw_Button(&Back);
-
 }
 
+void Draw_Calibration_Page()
+{
+	Small_Button_Color = COLOR_16_RED;
+	clearScreen(1);
+	setColor16(0xFFFF);
+	clearScreen(1);
+	setColor16(COLOR_16_BLUE);
+	fillRect(0, 0, 220, 30);
+	setColor16(COLOR_16_WHITE);
+	setBackgroundColor16(COLOR_16_BLUE);
+	drawString11_16(10, 10, "Reflow Oven V3");
+	setBackgroundColor16(COLOR_16_BLACK);
+	setColor16(COLOR_16_WHITE);
+	drawString8_12(10,40, "Calibrate Temperature");
+	drawString(10,55,"Ensure Thermcouple is plugged in.");
+	drawString(10,63,"Thermcouple must be at room temp.");
+	drawString(10,75,"Current Temp:");
+	drawString(120,75,"Set Temp:");
+	setColor16(COLOR_16_WHITE);
+
+	Draw_Small_Button(&Plus);
+	Draw_Small_Button(&Minus);
+	Draw_Small_Button(&Set_Temp);
+	Draw_Button(&Back);
+}
 
 void Check_Home_Page_Touch(Pages * page_return)
 {
@@ -376,6 +423,31 @@ void Check_Settings_Page(Pages * page_return)
 	uint16_t yval =0;
 
 	TOUCH_VAL(&xval, &yval);
+	if(Check_Touch(&Back,xval,yval))
+	{
+		*page_return = Home_Page;
+	}
+	else if(Check_Small_Touch(&Time,xval,yval))
+	{
+		*page_return = Time_Page;
+	}
+	else if(Check_Small_Touch(&Calibration,xval,yval))
+	{
+		*page_return = Calibration_Page;
+	}
+	else
+	{
+		*page_return = Settings_Page;
+	}
+
+}
+
+void Check_Time_Page(Pages * page_return)
+{
+	uint16_t xval =0;
+	uint16_t yval =0;
+
+	TOUCH_VAL(&xval, &yval);
 	if(Check_Small_Touch(&Mins,xval,yval))
 	{
 		Small_Button_Color = COLOR_16_BLUE;
@@ -383,9 +455,9 @@ void Check_Settings_Page(Pages * page_return)
 		Small_Button_Color = COLOR_16_RED;
 		Draw_Small_Button(&Hours);
 		mins_selected=true;
-		_delay_cycles(10000000);
+		_delay_cycles(5000000);
 	}
-	/*
+
 	if(Check_Small_Touch(&Hours,xval,yval))
 	{
 		Small_Button_Color = COLOR_16_BLUE;
@@ -394,53 +466,103 @@ void Check_Settings_Page(Pages * page_return)
 		Small_Button_Color = COLOR_16_RED;
 		Draw_Small_Button(&Mins);
 		mins_selected=false;
-		_delay_cycles(10000000);
+		_delay_cycles(5000000);
 	}
 
 	if(Check_Small_Touch(&Plus,xval,yval))
 	{
 		if(mins_selected)
 		{
-			mins = (mins + 1)%60;
-			get_time(text_buffer);
+			set_system_minutes((get_system_minutes() + 1)%60);
+			get_system_time_string(text_buffer);
 			drawString(10,160,text_buffer);
 		}
 		else
 		{
-			hours = hours%12+1;
-			get_time(text_buffer);
+			set_system_hours(get_system_hours()%12 + 1);
+			get_system_time_string(text_buffer);
 			drawString(10,160,text_buffer);
 		}
-		_delay_cycles(10000000);
+		_delay_cycles(5000000);
 	}
 
 	if(Check_Small_Touch(&Minus,xval,yval))
 	{
 		if(mins_selected)
 		{
-			mins -= 1;
-			if(mins>60)
-				mins=59;
-			get_time(text_buffer);
+			set_system_minutes(get_system_minutes()-1);
+			if(get_system_minutes()>60)
+				set_system_minutes(59);
+			get_system_time_string(text_buffer);
 			drawString(10,160,text_buffer);
 		}
 		else
 		{
-			hours -=1;
-			if(hours<1)
-				hours=12;
-			get_time(text_buffer);
+			set_system_hours(get_system_hours()-1);
+			if(get_system_hours()<1)
+				set_system_hours(12);
+			get_system_time_string(text_buffer);
 			drawString(10,160,text_buffer);
 		}
-		_delay_cycles(10000000);
+		_delay_cycles(5000000);
 	}
-	*/
+
 
 	if(Check_Touch(&Back,xval,yval))
 	{
-		*page_return = Home_Page;
+		*page_return = Settings_Page;
+	}
+	else
+	{
+		*page_return = Time_Page;
 	}
 
+}
+
+void Check_Calibration_Page(Pages * page_return)
+{
+	static uint8_t set_temp_val=20;
+	uint16_t xval =0;
+	uint16_t yval =0;
+	TOUCH_VAL(&xval, &yval);
+
+	if(Check_Small_Touch(&Plus,xval,yval))
+	{
+		if(set_temp_val<40)
+		{
+			set_temp_val+=1;
+			_delay_cycles(5000000);
+		}
+	}
+
+	if(Check_Small_Touch(&Minus,xval,yval))
+	{
+		if(set_temp_val>1)
+		{
+			set_temp_val-=1;
+			_delay_cycles(5000000);
+		}
+	}
+
+	if(Check_Small_Touch(&Set_Temp,xval,yval))
+	{
+		set_cal(set_temp_val);
+		_delay_cycles(5000000);
+	}
+
+	sprintf(text_buffer,"%dC",set_temp_val);
+	drawString(180,75,text_buffer);
+
+	sprintf(text_buffer,"%d %d                  ",get_cal_temp_offset(),get_cal_adc_offset());
+	drawString(70,120,text_buffer);
+	if(Check_Touch(&Back,xval,yval))
+	{
+		*page_return = Settings_Page;
+	}
+	else
+	{
+		*page_return = Calibration_Page;
+	}
 
 }
 
@@ -520,9 +642,15 @@ void print_oven_data()
 			oven_temp_max=0;
 
 	}
+	if(Current_Page ==Calibration_Page)
+	{
+		oven_temp= get_temp();
+		get_temp_str(oven_temp,text_buffer);
+		setColor16(COLOR_16_CYAN);
+		drawString(90, 75, text_buffer);
+	}
 
 }
-
 
 void Page_Event_Handler()
 {
@@ -544,7 +672,7 @@ void Page_Event_Handler()
 			else if(Page_Return ==Settings_Page)
 			{
 				Current_Page =Settings_Page;
-				Draw_Settings_Page();;
+				Draw_Settings_Page();
 				_delay_cycles(10000000);
 			}
 
@@ -572,9 +700,40 @@ void Page_Event_Handler()
 				Draw_Home_Page();
 				_delay_cycles(10000000);
 			}
+			else if(Page_Return ==Time_Page)
+			{
+				Current_Page =Time_Page;
+				Draw_Time_Page();
+				_delay_cycles(10000000);
+			}
+			else if(Page_Return ==Calibration_Page)
+			{
+				Current_Page = Calibration_Page;
+				Draw_Calibration_Page();
+				_delay_cycles(10000000);
+			}
 
 			break;
 
+		case Time_Page:
+			Check_Time_Page(&Page_Return);
+			if(Page_Return == Settings_Page)
+			{
+				Current_Page= Settings_Page;
+				Draw_Settings_Page();
+				_delay_cycles(10000000);
+			}
+			break;
+
+		case Calibration_Page:
+			Check_Calibration_Page(&Page_Return);
+			if(Page_Return == Settings_Page)
+			{
+				Current_Page = Settings_Page;
+				Draw_Settings_Page();
+				_delay_cycles(10000000);
+			}
+			break;
 
 
 	}

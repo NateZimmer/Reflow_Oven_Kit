@@ -14,7 +14,7 @@
 #include "../LCD/touch.h"
 #include "../LCD/colorLCD.h"
 
-static time_stamp idle_timer={0,1,0};
+static time_stamp idle_timer={0,5,0};
 
 void reset_idle_timer()
 {
@@ -22,6 +22,7 @@ void reset_idle_timer()
 	idle_timer.secs=0;
 	LCD_BLIGHT_OUTPUT |= LCD_BLIGHT;
 	LED_ANI_OFF();
+	CHARGE_ON();
 }
 
 
@@ -43,8 +44,32 @@ void led_state_machine()
 			{
 				LCD_BLIGHT_OUTPUT &= ~LCD_BLIGHT;
 				LED_ANI_ON();
+				CHARGE_OFF();
 			}
 		}
+	}
+	if(oven_status==Oven_Alarm)
+	{
+		if(check_for_lead_profile())
+		{
+			if((get_reflow_time_minutes()*60 + get_reflow_time_seconds())>90)
+					{
+						BUZZER_ON();
+					}
+			else
+				BUZZER_OFF();
+		}
+		else
+		{
+			if((get_reflow_time_minutes()*60 + get_reflow_time_seconds())>80)
+								{
+									BUZZER_ON();
+								}
+			else
+				BUZZER_OFF();
+		}
+
+
 	}
 
 }

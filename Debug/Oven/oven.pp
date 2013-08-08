@@ -7,6 +7,8 @@ Oven/oven.obj: ../Oven/../DRIVE/gpio.h
 Oven/oven.obj: ../Oven/../DRIVE/spi.h
 Oven/oven.obj: F:/Program\ Files/ti/ccsv5/ccs_base/msp430/include/msp430g2553.h
 Oven/oven.obj: F:/Program\ Files/ti/ccsv5/ccs_base/msp430/include/in430.h
+Oven/oven.obj: ../Oven/../DRIVE/adc.h
+Oven/oven.obj: ../Oven/calibration.h
 
 ../Oven/oven.c: 
 ../Oven/oven.h: 
@@ -15,3 +17,5 @@ F:/Program\ Files/ti/ccsv5/tools/compiler/msp430/include/stdint.h:
 ../Oven/../DRIVE/spi.h: 
 F:/Program\ Files/ti/ccsv5/ccs_base/msp430/include/msp430g2553.h: 
 F:/Program\ Files/ti/ccsv5/ccs_base/msp430/include/in430.h: 
+../Oven/../DRIVE/adc.h: 
+../Oven/calibration.h: 

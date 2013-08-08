@@ -12,12 +12,14 @@
 #include "Oven\oven.h"
 #include "DRIVE/timer.h"
 #include "DRIVE/led.h"
+#include "Oven\calibration.h"
 
 int main(void)
 {
 	WDTCTL = WDTPW + WDTHOLD; // disable WDT
 	BCSCTL1 = CALBC1_16MHZ; // 16MHz clock
 	DCOCTL = CALDCO_16MHZ;
+	init_cal();
 	Setup_PWM_Timers();
 	TOUCH_SETUP();
 	rtc_setup();

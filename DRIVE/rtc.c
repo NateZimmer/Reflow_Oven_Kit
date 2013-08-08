@@ -10,8 +10,6 @@
 #include "rtc.h"
 #include "timer.h"
 
-
-
 //static int gseq = 33;
 //static int rseq = 0;
 //static int bseq = 66;
@@ -101,6 +99,31 @@ __interrupt void watchdog_timer(void)
 uint8_t get_system_seconds()
 {
 	return system_time.secs;
+}
+
+uint8_t get_system_minutes()
+{
+	return system_time.minutes;
+}
+
+uint8_t get_system_hours()
+{
+	return system_time.hours;
+}
+
+void set_system_seconds(uint8_t secs)
+{
+	system_time.secs=secs;
+}
+
+void set_system_minutes(uint8_t minutes)
+{
+	system_time.minutes=minutes;
+}
+
+void set_system_hours(uint8_t hours)
+{
+	system_time.hours=hours;
 }
 
 void get_system_time_string(char * buffer)

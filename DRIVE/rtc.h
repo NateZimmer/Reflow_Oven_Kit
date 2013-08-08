@@ -48,6 +48,13 @@ extern uint8_t task_flags;
 extern uint16_t reflow_timer;
 
 uint8_t get_system_seconds();
+uint8_t get_system_minutes();
+uint8_t get_system_hours();
+
+void set_system_seconds(uint8_t secs);
+void set_system_minutes(uint8_t minutes);
+void set_system_hours(uint8_t hours);
+
 void get_system_time_string(char * buffer);
 void rtc_setup();
 

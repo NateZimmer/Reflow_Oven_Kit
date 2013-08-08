@@ -24,7 +24,6 @@ uint8_t get_reflow_time_seconds();
 uint8_t get_reflow_time_minutes();
 uint16_t get_profile_temp();
 
-
 enum oven_state {
 	Oven_Off,
 	Oven_Reflowing,

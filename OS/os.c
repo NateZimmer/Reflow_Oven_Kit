@@ -48,11 +48,13 @@ void run_tasks()
 
 	if(task_flags & task_62ms_flag)
 	{
-		GLED_Sequence();
-		RLED_Sequence();
-		BLED_Sequence();
-
-		task_flags &=~task_62ms_flag;
+		if(Get_LED_Timer_Status())
+		{
+			GLED_Sequence();
+			RLED_Sequence();
+			BLED_Sequence();
+			task_flags &=~task_62ms_flag;
+		}
 
 	}
 

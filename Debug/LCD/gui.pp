@@ -22,6 +22,7 @@ LCD/gui.obj: ../LCD/../DRIVE/../Oven/profile_lead.h
 LCD/gui.obj: ../LCD/../DRIVE/../Oven/profile_pb_free.h
 LCD/gui.obj: ../LCD/../DRIVE/../OS/time.h
 LCD/gui.obj: ../LCD/../DRIVE/timer.h
+LCD/gui.obj: ../LCD/../Oven/calibration.h
 LCD/gui.obj: F:/Program\ Files/ti/ccsv5/tools/compiler/msp430/include/string.h
 
 ../LCD/gui.c: 
@@ -46,4 +47,5 @@ F:/Program\ Files/ti/ccsv5/tools/compiler/msp430/include/stdarg.h:
 ../LCD/../DRIVE/../Oven/profile_pb_free.h: 
 ../LCD/../DRIVE/../OS/time.h: 
 ../LCD/../DRIVE/timer.h: 
+../LCD/../Oven/calibration.h: 
 F:/Program\ Files/ti/ccsv5/tools/compiler/msp430/include/string.h: 

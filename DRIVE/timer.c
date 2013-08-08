@@ -8,19 +8,13 @@
 #include "timer.h"
 #include "GPIO.h"
 #include "msp430g2553.h"
+#include "stdbool.h"
 
 static int gseq = 0;
 static int rseq = 50;
 static int bseq = 25;
 
-const int led_dutys[] = { 1, 1, 1, 1, 2, 2, 3, 5, 6, 9, 11, 14, 18, 22, 28, 33,
-		40, 47, 55, 65, 75, 86, 98, 111, 126, 141, 158, 176, 196, 217, 239, 263,
-		288, 315, 344, 374, 406, 439, 475, 513, 552, 593, 637, 682, 730, 779,
-		831, 885, 942, 1001, 1001, 942, 885, 831, 779, 730, 682, 637, 593, 552,
-		513, 475, 439, 406, 374, 344, 315, 288, 263, 239, 217, 196, 176, 158,
-		141, 126, 111, 98, 86, 75, 65, 55, 47, 40, 33, 28, 22, 18, 14, 11, 9, 6,
-		5, 3, 2, 2, 1, 1, 1, 1
-};
+static bool ANIMATION_TIMERS_ON = false;
 
 const int led_dutys2[] = { 1002, 1002, 1002, 1002, 1001, 1001, 1000, 998, 997,
 		994, 992, 989, 985, 981, 975, 970, 963, 956, 948, 938, 928, 917, 905,
@@ -32,6 +26,33 @@ const int led_dutys2[] = { 1002, 1002, 1002, 1002, 1001, 1001, 1000, 998, 997,
 		1001, 1001, 1002, 1002, 1002, 1002,
 
 };
+
+const int blue_dutys[] = { 1002, 1002, 1002, 1002, 1001, 1001, 1000, 998, 997,
+		994, 992, 989, 985, 981, 975, 970, 963, 956, 948, 938, 928, 917, 905,
+		892, 877, 862, 845, 827, 807, 786, 764, 740, 715, 688, 659, 629, 597,
+		564, 528, 490, 451, 410, 366, 321, 321, 321, 321, 321,321, 321, 321, 321,
+		321, 321, 321, 321, 321, 366, 410, 451, 490, 528, 564, 597, 629, 659,
+		688, 715, 740, 764, 786, 807, 827, 845, 862, 877, 892, 905, 917, 928,
+		938, 948, 956, 963, 970, 975, 981, 985, 989, 992, 994, 997, 998, 1000,
+		1001, 1001, 1002, 1002, 1002, 1002,
+
+};
+
+
+void Set_LED_Timers_On()
+{
+	ANIMATION_TIMERS_ON = true;
+}
+
+void Set_LED_Timers_Off()
+{
+	ANIMATION_TIMERS_ON = false;
+}
+
+uint8_t Get_LED_Timer_Status()
+{
+	return (uint8_t)ANIMATION_TIMERS_ON;
+}
 
 
 void Setup_PWM_Timers()
@@ -58,8 +79,26 @@ void Setup_PWM_Timers()
 
 }
 
+void CHARGE_ON()
+{
+	CCR0 =1002; //16MHZ/1000= 16khz
+	CCR1 =500; // 50% duty cycle
+	CHARGE_PUMP_ON;
+}
+
+void CHARGE_OFF()
+{
+	unsigned int CCR0_val =CCR0;
+	CHARGE_PUMP_OFF;
+	if(!(CCR0_val ==1002)) //16MHZ/1000= 16khz
+	{
+		CCR0 =1002;
+	}
+}
+
 void LED_ANI_OFF()
 {
+	Set_LED_Timers_Off();
 	BLED_A_OFF;
 	GLED_A_OFF;
 	RLED_A_OFF;
@@ -67,6 +106,7 @@ void LED_ANI_OFF()
 
 void LED_ANI_ON()
 {
+	Set_LED_Timers_On();
 	BLED_A_ON;
 	GLED_A_ON;
 	RLED_A_ON;
@@ -105,7 +145,7 @@ void RLED_Sequence()
 
 void BLED_Sequence()
 {
-	CCR1 = led_dutys2[bseq]; //change TA0.1 duty cycle
+	CCR1 = blue_dutys[bseq]; //change TA0.1 duty cycle
 	bseq++;
 	if(bseq>99)
 		bseq=0;
