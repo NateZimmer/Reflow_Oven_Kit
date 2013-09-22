@@ -156,36 +156,15 @@ void Draw_Home_Page()
 	setColor16(COLOR_16_WHITE);
 	drawString8_12(10,40, "Select Reflow Profile:");
 
-	/*
-	setColor16(COLOR_16_RED);
-	fillRect(10, 60, 95, 90);
-	setColor16(COLOR_16_WHITE);
-	setBackgroundColor16(COLOR_16_RED);
-	setColor16(COLOR_16_WHITE);
-	drawString11_16(20, 70, "Leaded");
-	setBackgroundColor16(COLOR_16_BLACK);
-
-	setColor16(COLOR_16_RED);
-	fillRect(110, 60, 210, 90);
-	setColor16(COLOR_16_WHITE);
-	setBackgroundColor16(COLOR_16_RED);
-	setColor16(COLOR_16_WHITE);
-	drawString11_16(120, 70, "Pb-Free");
-	setBackgroundColor16(COLOR_16_BLACK);
-
-	 */
-
 	drawString(10, 90, "Peak: 210C");
 	drawString(110, 90, "Peak: 230C");
 	drawString(10, 105, "Ensure Thermocouple Touches PCB");
-	drawString(10, 150, "Time:");
-	drawString(10, 120, "Hardware/Software:");
-	drawString(10, 130, "Nathan Zimmerman");
 	setColor16(COLOR_16_WHITE);
 
 	Draw_Button(&Leaded);
 	Draw_Button(&Pb_Free);
 	Draw_Button(&Settings);
+
 }
 
 void Draw_Oven_Page()

@@ -15,8 +15,6 @@
 #define		SLOW2_SPI		UCB0BR0 = 0x1A // Down Clock
 #define		FAST_SPI		UCB0BR0 = 0x0 //Max
 
-
-
 void SPI_B_INIT();
 uint8_t SPI_B_SEND(uint8_t data);
 
